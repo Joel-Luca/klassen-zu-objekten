@@ -22,6 +22,6 @@ public class App {
                 index = i;
             }
         }
-        System.out.println("Der " + index + ".Account hat den grössten Betrag: " + accounts[index].getSaldo());
+        System.out.println("Der " + (index + 1) + ".Account hat den grössten Betrag: " + accounts[index].getSaldo());
     }
 }

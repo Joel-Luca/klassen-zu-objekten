@@ -1,23 +1,40 @@
 package quiz.teil1;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class QuizApp {
     public static void main(String[] args) {
 
-        int number = 10; // number of questions
+        Scanner scanner = new Scanner(System.in);
+
+        boolean onquestion = true;
+
+        int number = 0; // number of questions
+        int questioncounter = 1;
         int score = 0;
 
-        Scanner scanner = new Scanner(System.in);
-        Question[] questions = new Question[number];
 
+        while(onquestion) {
+            System.out.print("Gib die Anzahl der Fragen ein: ");
+            try {
+                number = Integer.parseInt(scanner.nextLine());
+
+                onquestion = false;
+            }
+            catch(Exception e) {
+                System.out.println("\nUnknown input!");
+            }
+        }
+
+        Question[] questions = new Question[number];
         questions = QuestionGenerator.generateQuestions(number, "easy");
 
         for(Question question : questions) {
 
-            boolean onquestion = true;
+            onquestion = true;
             while (onquestion) {
-                System.out.println("\n" + question.getQuestionText() + "\n");
+                System.out.println("\n" + questioncounter + ": " + question.getQuestionText() + "\n");
                 for (int i = 0; i < question.getAnsers().length; i++) {
                     System.out.println("\t(" + (i + 1) + ")" + question.getAnsers()[i].getAnswerText());
                 }
@@ -49,6 +66,7 @@ public class QuizApp {
                             System.out.println("\nWrong Answer, the correct Answer is " + correctanswer + ".");
                         }
                         onquestion = false;
+                        questioncounter++;
                     }
                 }
                 catch (Exception e){
@@ -58,5 +76,6 @@ public class QuizApp {
         }
 
         System.out.println("\nYou reached the end with a score of " + score + "/" + number);
+
     }
 }
